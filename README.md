@@ -38,6 +38,18 @@ bash scripts/eval_RCHP.sh
 Note that the above scripts are used for 2-way 1-shot on S3DIS (S^0). Please modify the corresponding hyperparameters to conduct experiments on other settings. 
 
 
+### Quick Use
+
+St### Step 1: Add Testing Episode Files
+Place the testing episode files for [S3DIS](#) into the `dict:datasets` directory.
+
+### Step 2: Add Our Checkpoints
+Place the provided [RCHP](#) checkpoints into the `log_s3dis` directory.
+
+### Step 3: Run Evaluation
+Use the following command to evaluate the model:
+
+More checkpoint files and log files will be released soon. Please stay tuned!
 
 ## Citation
 Please cite our paper if it is helpful to your research:

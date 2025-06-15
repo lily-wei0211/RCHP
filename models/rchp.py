@@ -173,11 +173,6 @@ class RCHPProto(nn.Module):
             for i in range(self.n_way+1):
                 depth_prototypes.append(
                     torch.mean(support_depth_features[support_depth_labels == i], dim=0).unsqueeze(dim=0))
-                # if i ==0:
-                #     view_idx =list(range(self.args.depth_view, self.n_way*self.k_shot*6, 6))
-                # else:
-                #     view_idx = list(range(self.args.depth_view, self.k_shot*6, 6))
-                # depth_prototypes.append(torch.mean(support_depth_features[support_depth_labels == i][view_idx], dim=0).unsqueeze(dim=0))
             depth_prototypes = self.visual_projector(torch.cat(depth_prototypes, dim=0).unsqueeze(dim=0).float())
             # print(depth_prototypes.shape)
             fusion_prototype += depth_prototypes.float()

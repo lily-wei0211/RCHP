@@ -38,13 +38,21 @@ bash scripts/eval_RCHP.sh
 Note that the above scripts are used for 2-way 1-shot on S3DIS (S^0). Please modify the corresponding hyperparameters to conduct experiments on other settings. 
 
 
-### Quick Use
+## Quick Use
 
-St### Step 1: Add Testing Episode Files
-Place the testing episode files for [S3DIS](#) into the `dict:datasets` directory.
+### Step 1: Add Testing Episode Files
+Place the testing episode files [S3DIS](#) into the `datasets` directory.
+
+📁 Shared File: **S3DIS.zip**  
+🔗 Baidu Drive: [https://pan.baidu.com/s/1rpvYkgjRkESFSmU8Tgzq1w?pwd=mvve](https://pan.baidu.com/s/1rpvYkgjRkESFSmU8Tgzq1w?pwd=mvve)  
+🔑 Extraction Code: `mvve`
 
 ### Step 2: Add Our Checkpoints
-Place the provided [RCHP](#) checkpoints into the `log_s3dis` directory.
+Place the provided checkpoints [RCHP](#) into the `log_s3dis` directory.
+
+📁 Shared File: **RCHP.zip**  
+🔗 Baidu Drive: [https://pan.baidu.com/s/1pFECF8-NzUTOhKxrfzMZIA?pwd=kszj](https://pan.baidu.com/s/1pFECF8-NzUTOhKxrfzMZIA?pwd=kszj)  
+🔑 Extraction Code: `kszj`
 
 ### Step 3: Run Evaluation
 Use the following command to evaluate the model:

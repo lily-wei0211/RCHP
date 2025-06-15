@@ -41,23 +41,26 @@ Note that the above scripts are used for 2-way 1-shot on S3DIS (S^0). Please mod
 ## Quick Use
 
 ### Step 1: Add Testing Episode Files
-Place the testing episode files [S3DIS](#) into the `datasets` directory.
+
+Place the testing episode files for [S3DIS](#) into the `datasets` directory.
 
 📁 Shared File: **S3DIS.zip**  
-🔗 Baidu Drive: [https://pan.baidu.com/s/1rpvYkgjRkESFSmU8Tgzq1w?pwd=mvve](https://pan.baidu.com/s/1rpvYkgjRkESFSmU8Tgzq1w?pwd=mvve)  
-🔑 Extraction Code: `mvve`
+🔗 Baidu Drive: [https://pan.baidu.com/s/1APR_6PUyvhNbDHI8ugnMqQ?pwd=6aez](https://pan.baidu.com/s/1APR_6PUyvhNbDHI8ugnMqQ?pwd=6aez)  
+🔑 Extraction Code: `6aez`
 
 ### Step 2: Add Our Checkpoints
-Place the provided checkpoints [RCHP](#) into the `log_s3dis` directory.
+
+Place the provided checkpoint and log files for [RCHP](#) into the [`log_s3dis`](https://github.com/lily-wei0211/RCHP/tree/main/log_s3dis) directory.
 
 📁 Shared File: **RCHP.zip**  
-🔗 Baidu Drive: [https://pan.baidu.com/s/1pFECF8-NzUTOhKxrfzMZIA?pwd=kszj](https://pan.baidu.com/s/1pFECF8-NzUTOhKxrfzMZIA?pwd=kszj)  
-🔑 Extraction Code: `kszj`
+🔗 Baidu Drive: [https://pan.baidu.com/s/10c8D8gERovIH8RPhAmsp-g?pwd=csfh](https://pan.baidu.com/s/10c8D8gERovIH8RPhAmsp-g?pwd=csfh)  
+🔑 Extraction Code: `csfh`
 
 ### Step 3: Run Evaluation
 Use the following command to evaluate the model:
 
-More checkpoint files and log files will be released soon. Please stay tuned!
+## Checkpoints and Log Files
+More checkpoints and log files will be released soon. Please stay tuned!
 
 ## Citation
 Please cite our paper if it is helpful to your research:

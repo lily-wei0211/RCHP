@@ -219,19 +219,15 @@ class RCHPProto(nn.Module):
         hrc_loss = 0
         if self.use_hrc_loss:
             for i in range(query_feat.shape[0]):
-                # hrc_loss += self.inter_proto_hrc_loss(point_prototypes[0], fusion_prototype_post[i],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
                 hrc_loss += self.inter_proto_hrc_loss(point_prototypes[0][:,:self.train_dim//2], fusion_prototype_post[i][:,:self.train_dim//2],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
                 hrc_loss += self.inter_proto_hrc_loss(point_prototypes[0][:,self.train_dim//2:], fusion_prototype_post[i][:,self.train_dim//2:],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
                 if self.use_text:
-                    # hrc_loss += self.inter_proto_hrc_loss(text_prototypes[i], fusion_prototype_post[i],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
                     hrc_loss += self.inter_proto_hrc_loss(text_prototypes[i][:,:self.train_dim//2], fusion_prototype_post[i][:,:self.train_dim//2],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
                     hrc_loss += self.inter_proto_hrc_loss(text_prototypes[i][:,self.train_dim//2:], fusion_prototype_post[i][:,self.train_dim//2:],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
                 if self.use_depth:
-                    # hrc_loss += self.inter_proto_hrc_loss(depth_prototypes[0], fusion_prototype_post[i],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
                     hrc_loss += self.inter_proto_hrc_loss(depth_prototypes[0][:,:self.train_dim//2], fusion_prototype_post[i][:,:self.train_dim//2],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
                     hrc_loss += self.inter_proto_hrc_loss(depth_prototypes[0][:,self.train_dim//2:], fusion_prototype_post[i][:,self.train_dim//2:],dist_ratio=self.hrc_dist_ratio, angle_ratio=self.hrc_angle_ratio)
-            # hrc_loss = hrc_loss*0.5
-
+            
         total_loss = loss + align_loss + self_regulize_loss + hrc_loss * self.hrc_weight
         return query_pred, total_loss
 

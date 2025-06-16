@@ -61,6 +61,10 @@ Place the provided checkpoint and log files for [RCHP](#) into the [`log_s3dis`]
 
 Use the following command to evaluate the model.
 
+```bash
+bash scripts/eval_RCHP.sh
+```
+
 <details><summary>📋 Example Evaluation Log on S3DIS 2-way 1-shot $S^0$ (click to expand)</summary>
 <pre style="white-space: pre-wrap;">
 [Eval] Iter: 100 | Loss: 1.0533 | ACC: 0.9326 | 2024-08-10 13:21:38.014235

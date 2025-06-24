@@ -39,7 +39,7 @@ bash scripts/eval_RCHP.sh
 Note that the above scripts are used for 2-way 1-shot on S3DIS ($S^0$ and $S^1$). Please modify the corresponding hyperparameters to conduct experiments on other settings. 
 
 
-## Quick Use
+## Quick Start
 
 **Step 1: Add Testing Episode Files**
 

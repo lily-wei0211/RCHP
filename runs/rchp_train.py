@@ -21,8 +21,6 @@ def train(args):
 
     from dataloaders.loader import MyDataset, MyTestDataset, batch_test_task_collate
 
-    if args.visual_large:
-        from dataloaders.loader_large import MyDataset, MyTestDataset, batch_test_task_collate
 
     #Init datasets, dataloaders, and writer
     PC_AUGMENT_CONFIG = {'scale': args.pc_augm_scale,
@@ -65,8 +63,9 @@ def train(args):
             WRITER.add_scalar('Train/loss', loss, batch_idx)
             WRITER.add_scalar('Train/accuracy', accuracy, batch_idx)
 
-        if (batch_idx + 1) % args.eval_interval == 0 and (batch_idx + 1) > 20000:
+        # if (batch_idx + 1) % args.eval_interval == 0 and (batch_idx + 1) > 20000:
         # if (batch_idx+1) % args.eval_interval == 0:
+        if (batch_idx+1) % 10 == 0:
 
             valid_loss, mean_IoU = test_few_shot(VALID_LOADER, PL, logger, VALID_CLASSES)
             logger.cprint('\n=====[VALID] Loss: %.4f | Mean IoU: %f  =====\n' % (valid_loss, mean_IoU))

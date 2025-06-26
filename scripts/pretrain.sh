@@ -2,10 +2,10 @@ GPU_ID=4
 
 
 # for s3dis
- DATASET='s3dis'
- SPLIT=0
- DATA_PATH='./datasets/S3DIS/blocks_bs1_s1'
- SAVE_PATH='./log_s3dis/'
+DATASET='s3dis'
+SPLIT=0
+DATA_PATH='./datasets/S3DIS/blocks_bs1_s1'
+SAVE_PATH='./log_s3dis/'
 
 ## for scannet
 #DATASET='scannet'

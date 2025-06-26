@@ -125,7 +125,7 @@ def augment_pointcloud(P, pc_augm_config):
 
 class MyDataset(Dataset):
     def __init__(self, data_path, dataset_name, cvfold=0, num_episode=50000, n_way=3, k_shot=5, n_queries=1,
-                 phase=None, mode='train', num_point=4096, pc_attribs='xyz', pc_augm=False, pc_augm_config=None,use_mv_depth=False):
+                 phase=None, mode='train', num_point=4096, pc_attribs='xyz', pc_augm=False, pc_augm_config=None):
         super(MyDataset).__init__()
         self.data_path = data_path
         self.n_way = n_way
@@ -167,8 +167,6 @@ class MyDataset(Dataset):
         print('MODE: {0} | Classes: {1}'.format(mode, self.classes))
         self.class2scans = self.dataset.class2scans
 
-        # lili add
-        self.use_mv_depth = use_mv_depth
 
     def __len__(self):
         return self.num_episode
@@ -277,15 +275,12 @@ def batch_train_task_collate(batch):
 
 class MyTestDataset(Dataset):
     def __init__(self, data_path, dataset_name, cvfold=0, num_episode_per_comb=100, n_way=3, k_shot=5, n_queries=1,
-                       num_point=4096, pc_attribs='xyz', mode='valid',use_mv_depth=False,save_tsne=False):
+                       num_point=4096, pc_attribs='xyz', mode='valid'):
         super(MyTestDataset).__init__()
 
-        # lili add
-        self.use_mv_depth = use_mv_depth
-        self.save_tsne = save_tsne
 
         dataset = MyDataset(data_path, dataset_name, cvfold=cvfold, n_way=n_way, k_shot=k_shot, n_queries=n_queries,
-                            mode='test', num_point=num_point, pc_attribs=pc_attribs, pc_augm=False,use_mv_depth=self.use_mv_depth)
+                            mode='test', num_point=num_point, pc_attribs=pc_attribs, pc_augm=False)
         self.classes = dataset.classes
 
         if mode == 'valid':
@@ -325,31 +320,14 @@ class MyTestDataset(Dataset):
 
     def __getitem__(self, index):
         file_name = self.file_names[index]
-        # return read_episode(file_name)
-        # if self.save_tsne:
-        #     return read_episode(file_name),index
-        #     # return read_episode(file_name).append(index)
-        # else:
-        #     return read_episode(file_name)
         return read_episode(file_name), index
-        # return list(read_episode(file_name)).append(index)
 
 
 def batch_test_task_collate(batch):
-    # batch_support_ptclouds, batch_support_masks, batch_query_ptclouds, batch_query_labels, batch_sampled_classes = batch[0]
-    if len(batch[0])==2:
-        batch_support_ptclouds, batch_support_masks, batch_query_ptclouds, batch_query_labels, batch_sampled_classes = batch[0][0]
-        index = batch[0][-1]  # lili add
-    else:
-        batch_support_ptclouds, batch_support_masks, batch_query_ptclouds, batch_query_labels, batch_sampled_classes = batch[0]
-        index = 9999
+    batch_support_ptclouds, batch_support_masks, batch_query_ptclouds, batch_query_labels, batch_sampled_classes = batch[0][0]
     data = [torch.from_numpy(batch_support_ptclouds).transpose(2,3), torch.from_numpy(batch_support_masks),
             torch.from_numpy(batch_query_ptclouds).transpose(1,2), torch.from_numpy(batch_query_labels.astype(np.int64))]
-    # return data, batch_sampled_classes
-    if len(batch[0])==2:
-        return data, batch_sampled_classes,index
-    else:
-        return data, batch_sampled_classes
+    return data, batch_sampled_classes
 
 
 def write_episode(out_filename, data):

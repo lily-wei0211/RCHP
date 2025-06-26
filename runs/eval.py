@@ -73,8 +73,7 @@ def test_few_shot(test_loader, learner, logger, test_classes):
     predicted_label_total = []
     gt_label_total = []
     label2class_total = []
-    # for batch_idx, (data, sampled_classes) in enumerate(test_loader):
-    for batch_idx, (data, sampled_classes,index) in enumerate(test_loader):
+    for batch_idx, (data, sampled_classes) in enumerate(test_loader):
         query_label = data[-1]
 
         if torch.cuda.is_available():

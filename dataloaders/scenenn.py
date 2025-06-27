@@ -15,7 +15,7 @@ class SceneNNDataset(object):
         # self.class2type = {0:'unannotated', 1:'wall', 2:'floor', 3:'chair', 4:'table', 5:'desk', 6:'bed', 7:'bookshelf',
         #                    8:'sofa', 9:'sink', 10:'bathtub', 11:'toilet', 12:'curtain', 13:'counter', 14:'door',
         #                    15:'window', 16:'shower curtain', 17:'refridgerator', 18:'picture', 19:'cabinet', 20:'otherfurniture'}
-        # data_path='/data/wlili/3Dseg/PAP-FZS3D-main/datasets/SceneNN/'
+        # data_path='./datasets/SceneNN/'
         class_names = open(os.path.join(os.path.dirname(data_path), 'meta', 'scenenn_classnames.txt')).readlines()
         class_names = [name.strip() for name in class_names]
         # class_names = ['unknown','wall', 'floor', 'cabinet', 'bed', 'chair', 'sofa', 'table', 'door', 'window', 'bookshelf', 'picture', 'counter', 'blinds', 'desk', 'shelves', 'curtain', 'dresser', 'pillow', 'mirror', 'floor mat', 'clothes', 'ceiling', 'books', 'fridge', 'television', 'paper', 'towel', 'shower curtain', 'box', 'whiteboard', 'person', 'night stand', 'toilet', 'sink', 'lamp', 'bathtub', 'bag', 'structure', 'furniture', 'prop']
@@ -49,7 +49,7 @@ class SceneNNDataset(object):
 
         all_classes = [i for i in range(1, self.classes)]
         # self.train_classes = [c for c in all_classes if c not in self.test_classes]
-        self.train_classes = [c for c in all_classes if c not in self.test_classes and c not in self.filter_classes]  # lili add: filter out unlabeled classes
+        self.train_classes = [c for c in all_classes if c not in self.test_classes and c not in self.filter_classes]  #  add: filter out unlabeled classes
 
         self.class2scans = self.get_class2scans()
         # for nname in list(self.class2scans.keys()):

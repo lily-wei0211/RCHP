@@ -212,7 +212,7 @@ def distribute(depth, _x, _y, size_x, size_y, image_height, image_width):
 #
 #     return weighed_value_scattered,  weight_scattered
 
-# lili add
+# new add
 def distribute_rgb(depth, _x, _y, size_x, size_y, image_height, image_width):
     """
     Distributes the depth associated with each point to the discrete coordinates (image_height, image_width) in a region
@@ -295,7 +295,7 @@ def points2depth2(points, image_height, image_width, size_x=4, size_y=4):
     _x = (coord_x * image_height).floor().long()
     _y = (coord_y * image_width).floor().long()
 
-    # lili add
+    # new add
     # depth_recovered = torch.tensor(torch.zeros([batch, image_width, image_height]), device=points.device)
     depth_recovered = torch.zeros([batch, image_width, image_height]).to(_x.device).float()
     # depth_recovered[_x, _y] = points[:, :, 2]
@@ -376,7 +376,7 @@ def points2depth(points, image_height, image_width, size_x=4, size_y=4):
 #
 #     return depth_recovered
 
-# lili add
+# new add
 def points2image(points, image_height, image_width, size_x=4, size_y=4):
     """
     :param points: [B, num_points, 3]
@@ -500,7 +500,7 @@ class PCViews:
         self.translation = self.translation.unsqueeze(1)
 
     def get_img(self, points, resolution=None):
-        # lili add
+        # new add
         if resolution is None:
             resolution = RESOLUTION
         """Get image based on the prespecified specifications.

@@ -47,14 +47,12 @@ class SelfAttention(nn.Module):
 
         return y.transpose(1, 2)
 
-
+# original QGPA
 class QGPA(nn.Module):
-    def __init__(self, in_channel=320,out_channel = 320, attn_dropout=0.1):
+    def __init__(self, attn_dropout=0.1):
 
         super(QGPA, self).__init__()
-        # self.in_channel = self.out_channel = 320
-        self.in_channel = in_channel
-        self.out_channel = out_channel
+        self.in_channel = self.out_channel = 320
 
         self.temperature = self.out_channel ** 0.5
         self.layer_norm = nn.LayerNorm(self.in_channel)
@@ -67,35 +65,27 @@ class QGPA(nn.Module):
         self.dropout = nn.Dropout(attn_dropout)
 
     def forward(self, query, support, prototype):
+        '''
+        :param query: [2, 320, 2048]
+        :param support: [2, 320, 2048]
+        :param prototype: [2, 3, 320]
+        :return: [2, 3, 320]
+        '''
 
         batch, dim = query.shape[0], query.shape[1]
         way = support.shape[0] + 1
         residual = prototype
-        # 111--lili add for: pred without rand sampling. [1, 320, 40772]->[1, 320, 2048]
-        def sample_feature(feature):
-            if feature.shape[-1]>2048:
-                import random
-                index = torch.LongTensor(random.sample(range(feature.shape[-1]), 2048)).cuda()
-                feature = torch.index_select(feature, -1, index)
-            elif feature.shape[-1]<2048:
-                import random
-                index = torch.LongTensor(random.sample(range(feature.shape[-1]), 2048-feature.shape[-1])).cuda()
-                feature = torch.cat([feature,torch.index_select(feature, -1, index)],dim=-1)
-            return feature
-        query = sample_feature(query)
-        support = sample_feature(support)
-        # 111---end lili add
         q = self.q_map(query.transpose(1, 2))  # [2, 512, 320]  2way,2048points-512,320fea_dim
         if len(support.shape) == 4:
             support = support.squeeze()
-        support = torch.cat([support.mean(0).unsqueeze(0), support], dim=0)
-        k = self.k_map(support.transpose(1, 2))
-        v = self.v_map(prototype)
-        q = q.view(q.shape[1], q.shape[2] * q.shape[0])
-        k = k.view(k.shape[1], k.shape[2] * k.shape[0])
+        support = torch.cat([support.mean(0).unsqueeze(0), support], dim=0)  # [3, 512, 320]
+        k = self.k_map(support.transpose(1, 2))  # [3, 512, 320]
+        v = self.v_map(prototype)  # [2, 3, 320]
+        q = q.view(q.shape[1], q.shape[2] * q.shape[0])  # [512, 640]
+        k = k.view(k.shape[1], k.shape[2] * k.shape[0])  # [512, 960]
 
-        attn = torch.matmul(q.transpose(0, 1) / self.temperature, k)  #[640, 960]
-        attn = attn.reshape(batch, way, dim, dim)  #[2, 3, 320, 320]
+        attn = torch.matmul(q.transpose(0, 1) / self.temperature, k)  # [640, 960]
+        attn = attn.reshape(batch, way, dim, dim)  # [2, 3, 320, 320]
         attn = F.softmax(attn, dim=-1)
         v = v.unsqueeze(2)
         output = torch.matmul(attn, v.transpose(-2, -1)).squeeze(-1).transpose(1, 2)

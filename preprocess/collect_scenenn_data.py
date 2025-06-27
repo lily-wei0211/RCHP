@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     # parser.add_argument('--data_path', default='datasets/S3DIS/Stanford3dDataset_v1.2_Aligned_Version',help='Directory to dataset')
-    # parser.add_argument('--data_path', default='/data/wlili/3Dseg/datasets/Stanford3dDataset_v1.2',help='Directory to dataset')
+    # parser.add_argument('--data_path', default='./datasets/Stanford3dDataset_v1.2',help='Directory to dataset')
     parser.add_argument('--data_path', default='../datasets/scenenn_seg',help='Directory to dataset')
     args = parser.parse_args()
 

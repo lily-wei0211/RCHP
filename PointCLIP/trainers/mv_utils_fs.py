@@ -488,6 +488,6 @@ def points2depthloc(points, image_height, image_width, size_x=4, size_y=4):
         image_width=image_width)
 
     depth_recovered = (weighed_value_scattered / weight_scattered).view([batch, image_height, image_width])
-    # lili_add: return loc
+    # new_add: return loc
     # return depth_recovered, torch.stack([_x.ceil_().long(), _y.ceil_().long()], dim=-1)
     return depth_recovered, loc

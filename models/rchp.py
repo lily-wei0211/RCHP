@@ -137,7 +137,7 @@ class RCHPProto(nn.Module):
         # generate text prototypes: n_way noise setting
         text_prototypes = None
         if self.use_text:
-            text_emb = torch.mean(text_emb, dim=1)  # lili add for tmm gpt
+            text_emb = torch.mean(text_emb, dim=1)  
             prototype_fakes = []
             for i in range(query_feat.shape[0]):  # repeat n_way iters to add noisy for diverse text prototypes
                 z_g = torch.rand((text_emb.shape[0], self.noise_dim)).cuda()
